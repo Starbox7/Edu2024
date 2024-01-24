@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>사원 목록 페이지</title>
+    <style>
+      #searchSection {
+        display: flex;
+        height: 35px;
+        align-items: center;
+      }
+      #add {
+        background-color: rgb(249, 86, 86);
+        color: white;
+        border: 1px solid white;
+        padding: 10px;
+        border-radius: 7px;
+      }
+      #search {
+        margin-left: 10px;
+        padding-left: 10px;
+        border-left: 1px solid rgb(156, 156, 156);
+      }
+      #searchBtn {
+        border: 1px solid black;
+      }
+      table,
+      td {
+        border-collapse: collapse;
+        border: 1px solid rgb(127, 127, 127);
+      }
+      .input-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+      }
+      .input-container p {
+        margin-right: 5px;
+      }
+      table {
+        width: 100%;
+        margin-top: 10px;
+      }
+      table,
+      th,
+      td {
+        border: 1px solid #ddd;
+        text-align: left;
+      }
+      th,
+      td {
+        padding: 8px;
+      }
+      th {
+        background-color: rgb(255, 172, 65);
+      }
+      button {
+        margin-left: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="input-container">
+      <p>이름</p>
+      <input id="nameInput" />
+    </div>
+    <div class="input-container">
+      <p>부서</p>
+      <input id="departmentInput" />
+    </div>
+    <div class="input-container">
+      <p>직책</p>
+      <input id="positionInput" />
+    </div>
+    <div class="input-container">
+      <p>사진</p>
+      <input type="file" id="photoInput" />
+    </div>
+    <button id="add" onclick="addEmployee()">사원 추가 / 수정</button>
+    <hr />
+    <div id="searchSection">
+      <button id="searchBtn" onclick="deleteSelected()">선택 삭제</button>
+      <p id="search">검색 :&nbsp;</p>
+      <select id="dropdown" name="dropdown">
+        <option value="name">이름</option>
+        <option value="department">부서</option>
+        <option value="position">직급</option>
+      </select>
+      <input id="searchInput" />
+    </div>
+    <table id="employeesTable">
+      <tr>
+        <th><input type="checkbox" onclick="toggleAllCheckboxes(this)" /></th>
+        <th>번호</th>
+        <th>사진</th>
+        <th>사원명</th>
+        <th>부서</th>
+        <th>직책</th>
+        <th>수정</th>
+        <th>삭제</th>
+      </tr>
+      <!-- Employee rows will go here -->
+    </table>
+    <p>(s)starbox918.cu.ac.kr</p>
+
+    <script>
+      let editingId = null;
+
+      function addEmployee() {
+        const table = document.getElementById("employeesTable");
+        const nameInput = document.getElementById("nameInput").value;
+        const departmentInput =
+          document.getElementById("departmentInput").value;
+        const positionInput = document.getElementById("positionInput").value;
+        const photoInput = document.getElementById("photoInput").files[0];
+        const photoUrl = photoInput ? URL.createObjectURL(photoInput) : "";
+
+        if (editingId) {
+          // 기존 사원 수정
+          const existingRow = document.getElementById("row-" + editingId);
+          // ... [기존 사원 정보 수정 로직] ...
+          existingRow.cells[3].innerText = nameInput;
+          existingRow.cells[4].innerText = departmentInput;
+          existingRow.cells[5].innerText = positionInput;
+          existingRow.cells[2].innerHTML = photoInput
+            ? `<img src="${photoUrl}" style="width: 50px; height: auto;">`
+            : "";
+          editingId = null; // Reset editingId
+        } else {
+          // 새로운 사원 추가
+          const rowCount = table.rows.length;
+          const row = table.insertRow(rowCount);
+          row.id = "row-" + rowCount;
+          // ... [새 사원 정보 추가 로직] ...
+          row.insertCell(0).innerHTML = '<input type="checkbox">';
+          row.insertCell(1).innerText = rowCount; // Employee number
+          row.insertCell(2).innerHTML = photoInput
+            ? `<img src="${photoUrl}" style="width: 50px; height: auto;">`
+            : "";
+          row.insertCell(3).innerText = nameInput;
+          row.insertCell(4).innerText = departmentInput;
+          row.insertCell(5).innerText = positionInput;
+          row.insertCell(6).innerHTML =
+            '<button onclick="editEmployee(' + rowCount + ')">수정</button>';
+          row.insertCell(7).innerHTML =
+            '<button onclick="deleteEmployee(' + rowCount + ')">삭제</button>';
+
+          // 댓글 입력 섹션 추가
+          const commentRow = table.insertRow(rowCount + 1);
+          const commentCell = commentRow.insertCell(0);
+          commentCell.colSpan = "8";
+          commentCell.innerHTML = `
+          <div class="input-container">
+            <p>댓글:</p>
+            <input />
+            <p>작성자:</p>
+            <input />
+            <button onclick="addComment(this)">댓글 입력</button>
+          </div>
+        `;
+        }
+
+        // 입력란 초기화
+        document.getElementById("nameInput").value = "";
+        document.getElementById("departmentInput").value = "";
+        document.getElementById("positionInput").value = "";
+        document.getElementById("photoInput").value = "";
+      }
+
+      function addComment(button) {
+        // 댓글 추가 로직
+      }
+
+      // ... [기존 스크립트의 나머지 부분] ...
+    </script>
+  </body>
+</html>

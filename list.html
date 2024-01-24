@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>사원 목록 페이지</title>
+    <style>
+      #searchSection {
+        display: flex;
+        height: 35px;
+        align-items: center;
+      }
+      #add {
+        background-color: rgb(249, 86, 86);
+        color: white;
+        border: 1px solid white;
+        padding: 10px;
+        border-radius: 7px;
+      }
+      #search {
+        margin-left: 10px;
+        padding-left: 10px;
+        border-left: 1px solid rgb(156, 156, 156);
+      }
+      #searchBtn {
+        border: 1px solid black;
+      }
+      table,
+      td {
+        border-collapse: collapse;
+        border: 1px solid rgb(127, 127, 127);
+      }
+      .input-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+      }
+      .input-container p {
+        margin-right: 5px;
+      }
+      table {
+        width: 100%;
+        margin-top: 10px;
+      }
+      table,
+      th,
+      td {
+        border: 1px solid #ddd;
+        text-align: left;
+      }
+      th,
+      td {
+        padding: 8px;
+      }
+      th {
+        background-color: rgb(255, 172, 65);
+      }
+      button {
+        margin-left: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="input-container">
+      <p>이름</p>
+      <input id="nameInput" />
+    </div>
+    <div class="input-container">
+      <p>부서</p>
+      <input id="departmentInput" />
+    </div>
+    <div class="input-container">
+      <p>직책</p>
+      <input id="positionInput" />
+    </div>
+    <div class="input-container">
+      <p>사진</p>
+      <input type="file" id="photoInput" />
+    </div>
+    <button id="add" onclick="addEmployee()">사원 추가 / 수정</button>
+    <hr />
+    <div id="searchSection">
+      <button id="searchBtn" onclick="deleteSelected()">선택 삭제</button>
+      <p id="search">검색 :&nbsp;</p>
+      <select id="dropdown" name="dropdown">
+        <option value="name">이름</option>
+        <option value="department">부서</option>
+        <option value="position">직급</option>
+      </select>
+      <input id="searchInput" />
+    </div>
+    <table id="employeesTable">
+      <tr>
+        <th><input type="checkbox" onclick="toggleAllCheckboxes(this)" /></th>
+        <th>번호</th>
+        <th>사진</th>
+        <th>사원명</th>
+        <th>부서</th>
+        <th>직책</th>
+        <th>수정</th>
+        <th>삭제</th>
+      </tr>
+    </table>
+    <p>(s)starbox918.cu.ac.kr</p>
+
+    <script>
+      let editingId = null;
+      let currentEmployeeNumber = 0;
+
+      function addEmployee() {
+        const table = document.getElementById("employeesTable");
+        const nameInput = document.getElementById("nameInput").value;
+        const departmentInput =
+          document.getElementById("departmentInput").value;
+        const positionInput = document.getElementById("positionInput").value;
+        const photoInput = document.getElementById("photoInput").files[0];
+        const photoUrl = photoInput ? URL.createObjectURL(photoInput) : "";
+
+        if (editingId) {
+          const existingRow = document.getElementById("row-" + editingId);
+          existingRow.cells[3].innerText = nameInput;
+          existingRow.cells[4].innerText = departmentInput;
+          existingRow.cells[5].innerText = positionInput;
+          existingRow.cells[2].innerHTML = photoInput
+            ? `<img src="${photoUrl}" style="width: 50px; height: auto;">`
+            : "";
+          editingId = null;
+        } else {
+          const rowCount = table.rows.length;
+          const row = table.insertRow(rowCount);
+          row.id = "row-" + rowCount;
+          //   row.insertCell(0).innerHTML = '<input type="checkbox">';
+          //   row.insertCell(0).setAttribute("rowSpan", "2");
+          //   row.insertCell(1).innerText = rowCount; // Employee number
+          //   row.insertCell(1).setAttribute("rowSpan", "2");
+
+          const checkboxCell = row.insertCell(0);
+          checkboxCell.rowSpan = 2;
+          checkboxCell.innerHTML = '<input type="checkbox">';
+
+          //   const numberCell = row.insertCell(1);
+          //   numberCell.rowSpan = 2;
+          //   numberCell.innerText = rowCount; // Employee number
+          currentEmployeeNumber += 1;
+
+          const numberCell = row.insertCell(1);
+          numberCell.rowSpan = 2;
+          numberCell.innerText = currentEmployeeNumber;
+
+          row.insertCell(2).innerHTML = photoInput
+            ? `<img src="${photoUrl}" style="width: 50px; height: auto;">`
+            : "";
+          row.insertCell(3).innerText = nameInput;
+          row.insertCell(4).innerText = departmentInput;
+          row.insertCell(5).innerText = positionInput;
+
+          const editCell = row.insertCell(6);
+          editCell.rowSpan = 2;
+          //   row.insertCell(6).rowSpan = 2;
+          editCell.innerHTML =
+            '<button onclick="editEmployee(' + rowCount + ')">수정</button>';
+          const deleteCell = row.insertCell(7);
+          deleteCell.rowSpan = 2;
+          //   row.insertCell(7).rowSpan = 2;
+          deleteCell.innerHTML =
+            '<button onclick="deleteEmployee(' + rowCount + ')">삭제</button>';
+
+          const row2 = table.insertRow(rowCount + 1);
+          row2.id = "row-" + rowCount + 1000;
+          //   row2.insertCell(0).colSpan = 4;
+          const commentCell = row2.insertCell(0);
+          commentCell.colSpan = 4;
+          commentCell.innerHTML = ` 
+          <table id="commentTable">   
+            <tr>
+                <td colspan="5">
+                    <div style="display: flex; height:27px; align-items: center;">          
+            <p style="padding: 10px;">댓글</p>
+            <input id="commentInput"/>
+            <p style="padding: 10px;">작성자</p>
+            <input id="commentNameInput"/>          
+            <button id="addComment" onclick="addComment()" >댓글 입력</button>
+            </div>
+            </td>
+            </tr>
+            <tr>
+              <td>번호</td>
+              <td>댓글 내용</td>
+              <td>작성자</td>
+              <td>수정</td>
+              <td>삭제</td>
+            </tr>
+            </table>`;
+          //   row2.insertCell(0).setAttribute("rowSpan", "2");
+
+          //   const table2 = document.getElementById("commentTable");
+          //   const rowCount2 = table.rows.length;
+          //   const row3 = table.insertRow(rowCount2);
+          //   row.id = "row-" + rowCount2;
+          //   const comment = row3.
+        }
+
+        // Clear the input fields
+        document.getElementById("nameInput").value = "";
+        document.getElementById("departmentInput").value = "";
+        document.getElementById("positionInput").value = "";
+        document.getElementById("photoInput").value = "";
+      }
+
+      function addComment() {
+        const table = document.getElementById("commentTable");
+        const commentInput = document.getElementById("commentInput").value;
+        const commentNameInput =
+          document.getElementById("commentNameInput").value;
+
+        const rowCount = table.rows.length;
+        const row = table.insertRow(rowCount);
+        row.id = "row-" + rowCount;
+
+        const numberCell = row.insertCell(0);
+        numberCell.innerText = rowCount - 1;
+
+        row.insertCell(1).innerText = commentInput;
+        row.insertCell(2).innerText = commentNameInput;
+        row.insertCell(3).innerHTML = `<p>수정</p>`;
+        row.insertCell(4).innerHTML = `<p>삭제</p>`;
+      }
+
+      function deleteSelected() {
+        const table = document.getElementById("employeesTable");
+        const checkboxes = table.querySelectorAll(
+          'input[type="checkbox"]:checked'
+        );
+        checkboxes.forEach((checkbox) => {
+          if (checkbox !== table.rows[0].cells[0].querySelector("input")) {
+            table.deleteRow(checkbox.parentElement.parentElement.rowIndex);
+          }
+        });
+      }
+
+      function deleteEmployee(rowCount) {
+        const table = document.getElementById("employeesTable");
+        table.deleteRow(document.getElementById("row-" + rowCount).rowIndex);
+      }
+
+      function editEmployee(rowCount) {
+        const row = document.getElementById("row-" + rowCount);
+        document.getElementById("nameInput").value = row.cells[3].innerText;
+        document.getElementById("departmentInput").value =
+          row.cells[4].innerText;
+        document.getElementById("positionInput").value = row.cells[5].innerText;
+        editingId = rowCount; // Set editingId to the current row
+      }
+
+      function toggleAllCheckboxes(sourceCheckbox) {
+        const checkboxes = document.querySelectorAll(
+          '#employeesTable input[type="checkbox"]'
+        );
+        for (let checkbox of checkboxes) {
+          checkbox.checked = sourceCheckbox.checked;
+        }
+      }
+    </script>
+  </body>
+</html>
