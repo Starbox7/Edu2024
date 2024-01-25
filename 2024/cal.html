@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>자바스크립트 덧셈 계산기</title>
+  </head>
+  <body>
+    <h2>덧셈 계산기</h2>
+    <input type="number" id="num1" /> +
+    <input type="number" id="num2" />
+    <button id="result">=</button>
+
+    <script>
+      function add() {
+        num1val = Number(num1Input.value);
+        num2val = Number(num2Input.value);
+        resultNum = num1val + num2val;
+        console.log("눌렀다", resultNum);
+      }
+
+      let num1Input = document.getElementById("num1");
+      let num2Input = document.getElementById("num2");
+      let resultBtn = document.getElementById("result");
+      let resultNum;
+      resultBtn.onclick = function () {
+        add();
+      };
+    </script>
+  </body>
+</html>

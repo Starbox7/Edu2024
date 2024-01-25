@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>사원 목록 페이지</title>
+    <link rel="stylesheet" href="list.css" />
+  </head>
+  <body>
+    <section id="inputSection">
+      <section id="inputDataSection">
+        <img
+          src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1566913255/noticon/xbroxmdmksvebf3v6v8v.gif"
+          id="mainImage"
+        />
+        <div id="inputContainer">
+          <div class="inputContainer">
+            <p class="input">이름</p>
+            <input id="nameInput" />
+          </div>
+          <div class="inputContainer">
+            <p class="input">부서</p>
+            <input id="partInput" />
+          </div>
+          <div class="inputContainer">
+            <p class="input">직책</p>
+            <input id="levelInput" />
+          </div>
+          <div class="inputContainer">
+            <p class="input">사진</p>
+            <input type="file" id="imageInput" accept="image/*" />
+          </div>
+        </div>
+      </section>
+      <button id="inputButton" onclick="addEmployee()">사원 추가 / 수정</button>
+    </section>
+
+    <hr id="hr" />
+
+    <section id="searchSection">
+      <section id="optionSection">
+        <button id="selectedButton" onclick="deleteSelected()">
+          선택 삭제
+        </button>
+        <p id="search">검색 :</p>
+        <select id="dropdown" name="dropdown">
+          <option value="name">이름</option>
+          <option value="department">부서</option>
+          <option value="position">직급</option>
+        </select>
+        <input id="searchInput" />
+      </section>
+      <table id="listTable">
+        <tr>
+          <th id="chkTh">
+            <input type="checkbox" onclick="toggleAllCheckboxes(this)" />
+          </th>
+          <th id="numTh">사원 번호</th>
+          <th id="imgTh">사진</th>
+          <th id="nameTh">사원명</th>
+          <th id="partTh">부서</th>
+          <th id="lvTh">직급</th>
+          <th id="editTh">수정</th>
+          <th id="delTh">삭제</th>
+        </tr>
+      </table>
+    </section>
+    <p>starbox918@naver.com</p>
+    <script src="list.js"></script>
+  </body>
+</html>

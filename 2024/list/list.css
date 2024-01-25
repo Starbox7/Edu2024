@@ -1,0 +1,114 @@
+#inputSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#inputDataSection {
+  display: flex;
+  padding: 15px;
+}
+#mainImage {
+  width: 210px;
+  height: auto;
+  border-radius: 15px;
+}
+.inputContainer {
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+}
+.input {
+  padding-right: 10px;
+}
+#inputButton {
+  padding: 12px;
+  margin: 15px;
+  background-color: rgb(255, 66, 66);
+  color: white;
+  border: 0px;
+  border-radius: 5px;
+}
+#hr {
+  border-color: rgb(255, 255, 255);
+  margin: 30px;
+}
+#optionSection {
+  display: flex;
+  padding-left: 30px;
+  height: 45px;
+  align-items: center;
+}
+#search {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-left: 1px solid gray;
+  height: 17px;
+}
+#searchInput {
+  margin-left: 10px;
+}
+table,
+th,
+td {
+  border-collapse: collapse;
+  border: 1px solid rgb(127, 127, 127);
+}
+th {
+  padding: 5px;
+  background-color: rgb(255, 177, 82);
+}
+table {
+  width: 100%;
+}
+#chkTh {
+  width: 5%;
+}
+#numTh {
+  width: 5%;
+}
+#imgTh {
+  width: 50%;
+}
+#nameTh {
+  width: 10%;
+}
+#partTh {
+  width: 10%;
+}
+#lvTh {
+  width: 10%;
+}
+#editTh {
+  width: 5%;
+}
+#delTh {
+  width: 5%;
+}
+#commentNumTh {
+  width: 10%;
+  text-align: center;
+  border: 0px;
+}
+#commentTh {
+  width: 70%;
+  text-align: center;
+  border: 0px;
+}
+#writerTh {
+  width: 10%;
+  text-align: center;
+  border: 0px;
+}
+#commentEditTh {
+  width: 5%;
+  text-align: center;
+  border: 0px;
+}
+#commentDelTh {
+  width: 5%;
+  text-align: center;
+  border: 0px;
+}

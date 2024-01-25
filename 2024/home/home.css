@@ -1,0 +1,48 @@
+body {
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  flex-direction: column;
+}
+#infoSection {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  width: 35%;
+}
+
+#belief {
+  background-color: #f3f0f0;
+  padding: 40px;
+  border-radius: 7px;
+}
+#listSection {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  width: 35%;
+}
+#list {
+  display: flex;
+  justify-content: space-between;
+  background-color: #f3f0f0;
+  padding: 30px;
+  border-radius: 7px;
+}
+li {
+  padding: 5px;
+  font-size: 15px;
+}
+#kirby {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
+}
+
+@media screen and (max-width: 1400px) {
+  #infoSection,
+  #listSection {
+    width: 85%;
+  }
+}
