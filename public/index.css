@@ -4,11 +4,15 @@ body {
   /* justify-content: center; */
   flex-direction: column;
 }
+#logo {
+  display: flex;
+}
 #infoSection {
   display: flex;
   flex-direction: column;
   align-items: left;
   width: 35%;
+  margin-top: 50px;
 }
 
 #belief {
@@ -47,10 +51,20 @@ li {
 #listOl {
   padding-bottom: 130px;
 }
+h2 {
+  text-decoration: underline;
+}
 
 @media screen and (max-width: 1400px) {
   #infoSection,
   #listSection {
     width: 85%;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  #list {
+    display: flex;
+    flex-direction: column;
   }
 }

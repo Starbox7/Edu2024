@@ -1,0 +1,41 @@
+body,
+html {
+  padding: 0;
+  margin: 0;
+  font-family: "Arial", sans-serif;
+}
+h1 {
+  color: white;
+  display: flex;
+  align-items: center;
+}
+body {
+  background-color: black;
+}
+
+.video-player {
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+}
+
+.video-player video {
+  width: 100%;
+  border: none;
+  display: block;
+}
+
+.image-gallery {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 800px;
+  margin: auto;
+}
+
+.image-gallery img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
