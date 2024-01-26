@@ -28,6 +28,7 @@ body {
   background-color: #f3f0f0;
   padding: 30px;
   border-radius: 7px;
+  margin-bottom: 15px;
 }
 li {
   padding: 5px;
@@ -38,6 +39,13 @@ li {
   flex-direction: column;
   justify-content: end;
   align-items: center;
+}
+#copyrightSection {
+  display: flex;
+  align-items: center;
+}
+#listOl {
+  padding-bottom: 130px;
 }
 
 @media screen and (max-width: 1400px) {
