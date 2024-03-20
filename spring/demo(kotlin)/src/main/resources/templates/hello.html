@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Todo List</title>
+  </head>
+  <body>
+    <h1>Todo List</h1>
+    <div>
+      <form action="#" th:action="@{/api/todos}" th:method="post">
+        <input type="text" name="title" placeholder="Add a new todo" />
+        <button type="submit">Add</button>
+      </form>
+    </div>
+    <div>
+      <ul>
+        <li th:each="todo : ${todos}">
+          <span th:text="${todo.title}">Todo title</span>
+          <!-- 여기에 각 Todo 항목을 업데이트하고 삭제하는 버튼을 추가할 수 있습니다. -->
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
